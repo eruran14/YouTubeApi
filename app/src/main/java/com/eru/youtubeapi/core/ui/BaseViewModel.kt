@@ -1,4 +1,4 @@
-package com.eru.youtubeapi.base
+package com.eru.youtubeapi.core.ui
 
 import androidx.lifecycle.ViewModel
 

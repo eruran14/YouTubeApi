@@ -4,14 +4,14 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
-import com.eru.youtubeapi.CheckNetworkState
-import com.eru.youtubeapi.`object`.Constant
-import com.eru.youtubeapi.adapter.PlaylistAdapter
-import com.eru.youtubeapi.adapter.PlaylistAdapter.Companion.id
-import com.eru.youtubeapi.base.BaseActivity
-import com.eru.youtubeapi.base.BaseViewModel
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.eru.youtubeapi.core.common.CheckNetworkState
+import com.eru.youtubeapi.core.common.Constant
+import com.eru.youtubeapi.ui.playlists.adapter.PlaylistAdapter
+import com.eru.youtubeapi.core.ui.BaseActivity
+import com.eru.youtubeapi.core.ui.BaseViewModel
 import com.eru.youtubeapi.databinding.ActivityMainBinding
-import com.eru.youtubeapi.model.Item
+import com.eru.youtubeapi.data.remote.model.Item
 import com.eru.youtubeapi.ui.details.DetailsActivity
 
 class PlaylistActivity : BaseActivity<BaseViewModel, ActivityMainBinding>() {
@@ -31,8 +31,8 @@ class PlaylistActivity : BaseActivity<BaseViewModel, ActivityMainBinding>() {
     override fun initViewModel() {
         super.initViewModel()
 
-        adapter = PlaylistAdapter(list){
-            startDetailsActivity(id)
+        adapter = PlaylistAdapter(list){ title, description, count ->
+            startDetailsActivity(title, description, count)
         }
 
         viewModel.playlists().observe(this){ playlists ->
@@ -46,6 +46,7 @@ class PlaylistActivity : BaseActivity<BaseViewModel, ActivityMainBinding>() {
     override fun initViews() {
         super.initViews()
 
+        binding.recyclerView.layoutManager = LinearLayoutManager(this)
         binding.recyclerView.adapter = adapter
     }
 
@@ -64,9 +65,12 @@ class PlaylistActivity : BaseActivity<BaseViewModel, ActivityMainBinding>() {
         }
     }
 
-    private fun startDetailsActivity(id: String) {
-        val intent = Intent(this, DetailsActivity::class.java)
-        intent.putExtra(Constant.KEY_FOR_INTENT, id)
-        startActivity(intent)
+    private fun startDetailsActivity(title: String, description: String, count: Int) {
+        Intent(this, DetailsActivity::class.java).apply {
+            putExtra(Constant.KEY_FOR_TITLE, title)
+            putExtra(Constant.KEY_FOR_DESCRIPTION, description)
+            putExtra(Constant.KEY_FOR_COUNT, count)
+            startActivity(this)
+        }
     }
 }

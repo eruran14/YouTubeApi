@@ -1,18 +1,18 @@
-package com.eru.youtubeapi.remote
+package com.eru.youtubeapi.core.remote
 
 import com.eru.youtubeapi.BuildConfig.BASE_URL
+import com.eru.youtubeapi.data.remote.ApiService
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.create
 import java.util.concurrent.TimeUnit
 
 class RetrofitClient {
 
     companion object{
 
-        fun create(): ApiService{
+        fun create(): ApiService {
             val interceptor = HttpLoggingInterceptor()
             interceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
 

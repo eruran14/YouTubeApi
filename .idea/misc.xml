@@ -4,13 +4,15 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1325" />
+        <entry key="app/src/main/res/drawable/ic_baseline_keyboard_arrow_left_24.xml" value="0.1325" />
+        <entry key="app/src/main/res/drawable/ic_baseline_play_arrow_24.xml" value="0.1325" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.1325" />
         <entry key="app/src/main/res/drawable/no_internet.xml" value="0.1325" />
         <entry key="app/src/main/res/drawable/playlists.xml" value="0.1325" />
-        <entry key="app/src/main/res/layout/activity_details.xml" value="0.10587639311043566" />
+        <entry key="app/src/main/res/layout/activity_details.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="app/src/main/res/layout/item_playlist.xml" value="0.335" />
-        <entry key="app/src/main/res/layout/no_network.xml" value="0.10536980749746708" />
+        <entry key="app/src/main/res/layout/no_network.xml" value="0.125" />
       </map>
     </option>
   </component>

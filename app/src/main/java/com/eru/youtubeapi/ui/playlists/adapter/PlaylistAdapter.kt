@@ -1,19 +1,14 @@
-package com.eru.youtubeapi.adapter
+package com.eru.youtubeapi.ui.playlists.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import com.eru.youtubeapi.R
 import com.eru.youtubeapi.databinding.ItemPlaylistBinding
-import com.eru.youtubeapi.extensions.load
-import com.eru.youtubeapi.model.Item
+import com.eru.youtubeapi.core.extensions.load
+import com.eru.youtubeapi.data.remote.model.Item
 
-class PlaylistAdapter(private var list: ArrayList<Item>, private val onClick: (pos: Int) -> Unit): RecyclerView.Adapter<PlaylistAdapter.ViewHolder>() {
-
-//    private val onClick: (pos: Int) -> Unit
-    companion object{
-        var id = ""
-    }
+class PlaylistAdapter(private var list: ArrayList<Item>, private val onClick: (title: String, description: String, count: Int) -> Unit): RecyclerView.Adapter<PlaylistAdapter.ViewHolder>() {
 
     inner class ViewHolder(private val binding: ItemPlaylistBinding): RecyclerView.ViewHolder(binding.root){
 
@@ -21,15 +16,14 @@ class PlaylistAdapter(private var list: ArrayList<Item>, private val onClick: (p
             val imageUrl = list[position].snippet.thumbnails.medium.url
             val playlistTitle = list[position].snippet.title
             val numberOfVideos = list[position].contentDetails.itemCount
-            val displayNumber = "$numberOfVideos video series"
+            val displayNumber = String.format(itemView.context.getString(R.string.video_series), numberOfVideos)
 
             binding.ivPlaylist.load(imageUrl)
             binding.tvDescription.text = playlistTitle
             binding.tvVideosInPl.text = displayNumber
 
             binding.root.setOnClickListener {
-                id = list[position].id
-                onClick(adapterPosition)
+                onClick(list[position].snippet.title, list[position].snippet.description, numberOfVideos)
             }
         }
     }

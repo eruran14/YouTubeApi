@@ -1,15 +1,22 @@
 package com.eru.youtubeapi.ui.details
 
-import android.widget.Toast
+import android.annotation.SuppressLint
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.lifecycle.ViewModelProvider
-import com.eru.youtubeapi.`object`.Constant
-import com.eru.youtubeapi.base.BaseActivity
-import com.eru.youtubeapi.base.BaseViewModel
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.eru.youtubeapi.R
+import com.eru.youtubeapi.core.common.Constant
+import com.eru.youtubeapi.core.ui.BaseActivity
+import com.eru.youtubeapi.data.remote.model.Item
 import com.eru.youtubeapi.databinding.ActivityDetailsBinding
+import com.eru.youtubeapi.ui.details.adapter.DetailsAdapter
 
-class DetailsActivity : BaseActivity<BaseViewModel, ActivityDetailsBinding>() {
-    override val viewModel: BaseViewModel by lazy {
-        ViewModelProvider(this)[BaseViewModel::class.java]
+class DetailsActivity : BaseActivity<DetailsViewModel, ActivityDetailsBinding>() {
+    private lateinit var adapter: DetailsAdapter
+    private var list = arrayListOf<Item>()
+
+    override val viewModel: DetailsViewModel by lazy {
+        ViewModelProvider(this)[DetailsViewModel::class.java]
     }
     override fun inflateViewBinding(): ActivityDetailsBinding {
         return ActivityDetailsBinding.inflate(layoutInflater)
@@ -18,8 +25,33 @@ class DetailsActivity : BaseActivity<BaseViewModel, ActivityDetailsBinding>() {
     override fun initViews() {
         super.initViews()
 
-        val text = intent.getStringExtra(Constant.KEY_FOR_INTENT)
+        val title = intent.getStringExtra(Constant.KEY_FOR_TITLE)
+        val description = intent.getStringExtra(Constant.KEY_FOR_DESCRIPTION)
+        val numberOfVideos = intent.getIntExtra(Constant.KEY_FOR_COUNT, 0)
 
-        Toast.makeText(this, text, Toast.LENGTH_LONG).show()
+        binding.tvTitle.text = title
+        binding.tvDesc.text = description
+        binding.videosNumber.text = String.format(getString(R.string.video_series), numberOfVideos)
+
+        adapter = DetailsAdapter(list)
+        binding.rvDetails.layoutManager = LinearLayoutManager(this)
+        binding.rvDetails.adapter = adapter
+
+        binding.tvBack.setOnClickListener {
+            finish()
+        }
+
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    override fun initViewModel() {
+        super.initViewModel()
+
+        viewModel.playlists().observe(this){ playlists ->
+            playlists.items.forEach {
+                list.add(it)
+            }
+            adapter.notifyDataSetChanged()
+        }
     }
 }

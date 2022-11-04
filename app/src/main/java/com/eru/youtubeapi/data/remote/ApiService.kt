@@ -1,7 +1,6 @@
-package com.eru.youtubeapi.remote
+package com.eru.youtubeapi.data.remote
 
-import com.eru.youtubeapi.BuildConfig.API_KEY
-import com.eru.youtubeapi.model.Playlists
+import com.eru.youtubeapi.data.remote.model.Playlists
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -12,6 +11,7 @@ interface ApiService {
     fun getPlaylists(
         @Query("channelId") channelId: String,
         @Query("key") key: String,
-        @Query("part") part: String
+        @Query("part") part: String,
+        @Query("maxResults") maxResults: Int
     ): Call<Playlists>
 }

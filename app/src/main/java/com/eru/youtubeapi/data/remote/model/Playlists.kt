@@ -1,4 +1,4 @@
-package com.eru.youtubeapi.model
+package com.eru.youtubeapi.data.remote.model
 
 data class Playlists(
     val etag: String,
