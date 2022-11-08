@@ -8,7 +8,9 @@ import com.eru.youtubeapi.databinding.ItemPlaylistBinding
 import com.eru.youtubeapi.core.extensions.load
 import com.eru.youtubeapi.data.remote.model.Item
 
-class PlaylistAdapter(private var list: ArrayList<Item>, private val onClick: (title: String, description: String, count: Int) -> Unit): RecyclerView.Adapter<PlaylistAdapter.ViewHolder>() {
+class PlaylistAdapter(private var list: ArrayList<Item>,
+                      private val onClick: (title: String, description: String, count: Int, playlistId: String) -> Unit)
+    : RecyclerView.Adapter<PlaylistAdapter.ViewHolder>() {
 
     inner class ViewHolder(private val binding: ItemPlaylistBinding): RecyclerView.ViewHolder(binding.root){
 
@@ -23,7 +25,7 @@ class PlaylistAdapter(private var list: ArrayList<Item>, private val onClick: (t
             binding.tvVideosInPl.text = displayNumber
 
             binding.root.setOnClickListener {
-                onClick(list[position].snippet.title, list[position].snippet.description, numberOfVideos)
+                onClick(playlistTitle, list[position].snippet.description, numberOfVideos, list[position].id)
             }
         }
     }

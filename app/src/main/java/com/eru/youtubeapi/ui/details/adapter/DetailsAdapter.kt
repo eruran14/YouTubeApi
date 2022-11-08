@@ -2,13 +2,13 @@ package com.eru.youtubeapi.ui.details.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
-import com.eru.youtubeapi.R
 import com.eru.youtubeapi.databinding.ItemPlaylistBinding
 import com.eru.youtubeapi.core.extensions.load
-import com.eru.youtubeapi.data.remote.model.Item
+import com.eru.youtubeapi.data.remote.model.ItemItem
 
-class DetailsAdapter(private var list: ArrayList<Item>): RecyclerView.Adapter<DetailsAdapter.ViewHolder>() {
+class DetailsAdapter(private var list: ArrayList<ItemItem>): RecyclerView.Adapter<DetailsAdapter.ViewHolder>() {
 
     inner class ViewHolder(private val binding: ItemPlaylistBinding): RecyclerView.ViewHolder(binding.root){
 
@@ -21,6 +21,7 @@ class DetailsAdapter(private var list: ArrayList<Item>): RecyclerView.Adapter<De
             binding.ivPlaylist.load(imageUrl)
             binding.tvDescription.text = playlistTitle
             binding.tvVideosInPl.text = dateCreated
+            binding.textView.isVisible = false
         }
     }
 

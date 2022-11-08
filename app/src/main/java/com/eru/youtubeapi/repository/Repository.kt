@@ -1,37 +1,42 @@
 package com.eru.youtubeapi.repository
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.liveData
 import com.eru.youtubeapi.BuildConfig
 import com.eru.youtubeapi.core.common.Constant
 import com.eru.youtubeapi.core.remote.RetrofitClient
+import com.eru.youtubeapi.core.remote.result.Resource
 import com.eru.youtubeapi.data.remote.ApiService
+import com.eru.youtubeapi.data.remote.model.PlaylistItem
 import com.eru.youtubeapi.data.remote.model.Playlists
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import kotlinx.coroutines.Dispatchers
 
 class Repository {
     private val apiService: ApiService by lazy {
         RetrofitClient.create()
     }
 
-    fun getPlaylists(): LiveData<Playlists> {
-        val data = MutableLiveData<Playlists>()
+    fun getPlaylists(): LiveData<Resource<Playlists>> = liveData(Dispatchers.IO){
+        emit(Resource.loading())
+        val response = apiService.getPlaylists(Constant.channelId, BuildConfig.API_KEY, Constant.part, 50)
+        emit(
+            if (response.isSuccessful){
+                Resource.success(response.body())
+            } else {
+                Resource.error(response.message(), response.body(), response.code())
+            }
+        )
+    }
 
-        apiService.getPlaylists(Constant.channelId, BuildConfig.API_KEY, Constant.part, 50)
-            .enqueue(object : Callback<Playlists> {
-
-                override fun onResponse(call: Call<Playlists>, response: Response<Playlists>) {
-                    if (response.isSuccessful) {
-                        data.value = response.body()
-                    }
-                }
-                override fun onFailure(call: Call<Playlists>, t: Throwable) {
-
-                }
-            })
-
-        return data
+    fun getPlaylistItems(playlistId: String): LiveData<Resource<PlaylistItem>> = liveData(Dispatchers.IO){
+        emit(Resource.loading())
+        val response = apiService.getPlaylistItems(playlistId, BuildConfig.API_KEY, Constant.part, 50)
+        emit(
+            if (response.isSuccessful){
+                Resource.success(response.body())
+            } else {
+                Resource.error(response.message(), response.body(), response.code())
+            }
+        )
     }
 }

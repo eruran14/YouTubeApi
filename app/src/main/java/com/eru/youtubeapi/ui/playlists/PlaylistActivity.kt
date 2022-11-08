@@ -3,10 +3,13 @@ package com.eru.youtubeapi.ui.playlists
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.view.View
+import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.eru.youtubeapi.core.common.CheckNetworkState
 import com.eru.youtubeapi.core.common.Constant
+import com.eru.youtubeapi.core.remote.result.Status
 import com.eru.youtubeapi.ui.playlists.adapter.PlaylistAdapter
 import com.eru.youtubeapi.core.ui.BaseActivity
 import com.eru.youtubeapi.core.ui.BaseViewModel
@@ -31,14 +34,33 @@ class PlaylistActivity : BaseActivity<BaseViewModel, ActivityMainBinding>() {
     override fun initViewModel() {
         super.initViewModel()
 
-        adapter = PlaylistAdapter(list){ title, description, count ->
-            startDetailsActivity(title, description, count)
+        adapter = PlaylistAdapter(list){ title, description, count, id ->
+            startDetailsActivity(title, description, count, id)
         }
 
-        viewModel.playlists().observe(this){ playlists ->
-            playlists.items.forEach { item ->
-                list.add(item)
+        viewModel.loading.observe(this){
+            binding.progressBar.isVisible = it
+        }
+
+        viewModel.getPlaylists().observe(this){ resource ->
+            when(resource.status){
+                Status.SUCCESS -> {
+                    resource.data?.items?.forEach { item ->
+                        list.add(item)
+                    }
+                    viewModel.loading.postValue(false)
+                }
+
+                Status.ERROR -> {
+                    Toast.makeText(this, resource.message, Toast.LENGTH_SHORT).show()
+                    viewModel.loading.postValue(false)
+                }
+
+                Status.LOADING -> {
+                    viewModel.loading.postValue(true)
+                }
             }
+
             adapter.notifyDataSetChanged()
         }
     }
@@ -65,11 +87,12 @@ class PlaylistActivity : BaseActivity<BaseViewModel, ActivityMainBinding>() {
         }
     }
 
-    private fun startDetailsActivity(title: String, description: String, count: Int) {
+    private fun startDetailsActivity(title: String, description: String, count: Int, playlistId: String) {
         Intent(this, DetailsActivity::class.java).apply {
             putExtra(Constant.KEY_FOR_TITLE, title)
             putExtra(Constant.KEY_FOR_DESCRIPTION, description)
             putExtra(Constant.KEY_FOR_COUNT, count)
+            putExtra(Constant.KEY_FOR_ID, playlistId)
             startActivity(this)
         }
     }
