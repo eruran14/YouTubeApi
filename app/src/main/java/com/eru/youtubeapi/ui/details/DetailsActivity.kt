@@ -74,7 +74,6 @@ class DetailsActivity : BaseActivity<DetailsViewModel, ActivityDetailsBinding>()
                     viewModel.loading.postValue(true)
                 }
             }
-
             adapter.notifyDataSetChanged()
         }
     }
