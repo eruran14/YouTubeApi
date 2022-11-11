@@ -1,17 +1,20 @@
 package com.eru.youtubeapi.ui.details
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.eru.youtubeapi.R
 import com.eru.youtubeapi.core.common.Constant
+import com.eru.youtubeapi.core.common.Constant.KEY_FOR_VIDEO_ID
 import com.eru.youtubeapi.core.remote.result.Status
 import com.eru.youtubeapi.core.ui.BaseActivity
 import com.eru.youtubeapi.data.remote.model.ItemItem
 import com.eru.youtubeapi.databinding.ActivityDetailsBinding
 import com.eru.youtubeapi.ui.details.adapter.DetailsAdapter
+import com.eru.youtubeapi.ui.video.VideoActivity
 
 class DetailsActivity : BaseActivity<DetailsViewModel, ActivityDetailsBinding>() {
     private lateinit var adapter: DetailsAdapter
@@ -36,7 +39,6 @@ class DetailsActivity : BaseActivity<DetailsViewModel, ActivityDetailsBinding>()
         binding.tvDesc.text = description
         binding.videosNumber.text = String.format(getString(R.string.video_series), numberOfVideos)
 
-        adapter = DetailsAdapter(list)
         binding.rvDetails.layoutManager = LinearLayoutManager(this)
         binding.rvDetails.adapter = adapter
 
@@ -75,6 +77,13 @@ class DetailsActivity : BaseActivity<DetailsViewModel, ActivityDetailsBinding>()
                 }
             }
             adapter.notifyDataSetChanged()
+        }
+
+        adapter = DetailsAdapter(list){
+            Intent(this, VideoActivity::class.java).apply {
+                putExtra(KEY_FOR_VIDEO_ID, it)
+                startActivity(this)
+            }
         }
     }
 }

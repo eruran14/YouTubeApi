@@ -13,4 +13,10 @@
     <dimen name="big_text_size">24sp</dimen>
     <dimen name="small_text">12sp</dimen>
     <dimen name="app_bar_height">300dp</dimen>
+    <dimen name="video_height">240dp</dimen>
+    <dimen name="margin_12">12dp</dimen>
+    <dimen name="video_text_size">20sp</dimen>
+    <dimen name="dp_1">1dp</dimen>
+    <dimen name="border_stroke">0.5dp</dimen>
+    <dimen name="video_buttons_size">40dp</dimen>
 </resources>

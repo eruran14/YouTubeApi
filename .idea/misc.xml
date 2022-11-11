@@ -7,10 +7,14 @@
         <entry key="app/src/main/res/drawable/ic_baseline_keyboard_arrow_left_24.xml" value="0.1325" />
         <entry key="app/src/main/res/drawable/ic_baseline_play_arrow_24.xml" value="0.1325" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.1325" />
+        <entry key="app/src/main/res/drawable/il_download_24px.xml" value="0.1325" />
+        <entry key="app/src/main/res/drawable/il_download_circle.xml" value="0.1325" />
+        <entry key="app/src/main/res/drawable/il_rectangle_33.xml" value="0.1325" />
         <entry key="app/src/main/res/drawable/no_internet.xml" value="0.1325" />
         <entry key="app/src/main/res/drawable/playlists.xml" value="0.1325" />
         <entry key="app/src/main/res/layout/activity_details.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_video.xml" value="0.25" />
         <entry key="app/src/main/res/layout/item_playlist.xml" value="0.335" />
         <entry key="app/src/main/res/layout/no_network.xml" value="0.125" />
       </map>
