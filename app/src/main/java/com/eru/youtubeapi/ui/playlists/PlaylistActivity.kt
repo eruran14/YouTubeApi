@@ -5,7 +5,6 @@ import android.content.Intent
 import android.view.View
 import android.widget.Toast
 import androidx.core.view.isVisible
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.eru.youtubeapi.core.common.CheckNetworkState
 import com.eru.youtubeapi.core.common.Constant
@@ -16,15 +15,14 @@ import com.eru.youtubeapi.core.ui.BaseViewModel
 import com.eru.youtubeapi.databinding.ActivityMainBinding
 import com.eru.youtubeapi.data.remote.model.Item
 import com.eru.youtubeapi.ui.details.DetailsActivity
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class PlaylistActivity : BaseActivity<BaseViewModel, ActivityMainBinding>() {
     private var list = arrayListOf<Item>()
     private lateinit var adapter: PlaylistAdapter
     private lateinit var checkNetworkState: CheckNetworkState
 
-    override val viewModel: PlaylistsViewModel by lazy {
-        ViewModelProvider(this) [PlaylistsViewModel::class.java]
-    }
+    override val viewModel: PlaylistsViewModel by viewModel()
 
     override fun inflateViewBinding(): ActivityMainBinding {
         return ActivityMainBinding.inflate(layoutInflater)

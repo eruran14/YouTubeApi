@@ -2,15 +2,14 @@ package com.eru.youtubeapi.repository
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
-import com.eru.youtubeapi.App.Companion.dataSource
 import com.eru.youtubeapi.core.remote.result.Resource
+import com.eru.youtubeapi.data.remote.RemoteDataSource
 import com.eru.youtubeapi.data.remote.model.PlaylistItem
 import com.eru.youtubeapi.data.remote.model.Playlists
 import com.eru.youtubeapi.data.remote.model.Video
-import com.eru.youtubeapi.data.remote.model.VideoItem
 import kotlinx.coroutines.Dispatchers
 
-class Repository {
+class Repository(private val dataSource: RemoteDataSource) {
 
 
     fun getPlaylists(): LiveData<Resource<Playlists>> = liveData(Dispatchers.IO){

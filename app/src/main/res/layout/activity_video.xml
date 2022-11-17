@@ -47,53 +47,16 @@
 
     </androidx.appcompat.widget.Toolbar>
 
-    <ImageView
-        android:id="@+id/videoPreview"
+    <com.google.android.exoplayer2.ui.StyledPlayerView
+        android:id="@+id/videoPlayer"
         android:layout_width="match_parent"
         android:layout_height="@dimen/video_height"
         android:layout_marginTop="@dimen/margin_12"
-        android:background="@color/teal_200"
-        android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/videoToolbar"
-        tools:ignore="ContentDescription" />
-
-    <ImageView
-        android:id="@+id/iv_play"
-        android:layout_width="@dimen/video_buttons_size"
-        android:layout_height="@dimen/video_buttons_size"
-        android:alpha="0.8"
-        android:src="@drawable/ic_baseline_play_arrow_24"
-        app:layout_constraintBottom_toBottomOf="@id/videoPreview"
-        app:layout_constraintEnd_toEndOf="@id/videoPreview"
-        app:layout_constraintStart_toStartOf="@id/videoPreview"
-        app:layout_constraintTop_toTopOf="@id/videoPreview"
-        tools:ignore="ContentDescription" />
-
-    <ImageView
-        android:id="@+id/iv_next"
-        android:layout_width="@dimen/video_buttons_size"
-        android:layout_height="@dimen/video_buttons_size"
-        android:layout_marginEnd="@dimen/video_buttons_size"
-        android:alpha="0.8"
-        android:src="@drawable/ic_baseline_skip_next_24"
-        app:layout_constraintBottom_toBottomOf="@id/videoPreview"
-        app:layout_constraintEnd_toEndOf="@id/videoPreview"
-        app:layout_constraintTop_toTopOf="@id/videoPreview"
-        tools:ignore="ContentDescription" />
-
-    <ImageView
-        android:id="@+id/iv_previous"
-        android:layout_width="@dimen/video_buttons_size"
-        android:layout_height="@dimen/video_buttons_size"
-        android:layout_marginStart="@dimen/video_buttons_size"
-        android:alpha="0.8"
-        android:src="@drawable/ic_baseline_skip_previous_24"
-        app:layout_constraintBottom_toBottomOf="@id/videoPreview"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/videoPreview"
-        tools:ignore="ContentDescription" />
+       />
+    
 
     <TextView
         android:id="@+id/tv_video_title"
@@ -107,7 +70,7 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/videoPreview" />
+        app:layout_constraintTop_toBottomOf="@id/videoPlayer" />
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cv_download"
@@ -141,8 +104,7 @@
         android:layout_marginHorizontal="@dimen/tv_vid_height"
         android:layout_marginTop="@dimen/tv_vid_height"
         android:layout_marginBottom="@dimen/iv_height"
-        android:scrollbarFadeDuration="0"
-        android:scrollbars="vertical"
+        android:maxLines="6"
         android:text="@string/video_text_preview"
         android:textColor="@color/dark_black_text"
         android:textSize="@dimen/text_size_16"

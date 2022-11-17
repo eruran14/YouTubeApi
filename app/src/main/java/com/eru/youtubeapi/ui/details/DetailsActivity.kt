@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.widget.Toast
 import androidx.core.view.isVisible
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.eru.youtubeapi.R
 import com.eru.youtubeapi.core.common.Constant
@@ -15,15 +14,14 @@ import com.eru.youtubeapi.data.remote.model.ItemItem
 import com.eru.youtubeapi.databinding.ActivityDetailsBinding
 import com.eru.youtubeapi.ui.details.adapter.DetailsAdapter
 import com.eru.youtubeapi.ui.video.VideoActivity
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class DetailsActivity : BaseActivity<DetailsViewModel, ActivityDetailsBinding>() {
     private lateinit var adapter: DetailsAdapter
     private var list = arrayListOf<ItemItem>()
     private lateinit var playlistId: String
 
-    override val viewModel: DetailsViewModel by lazy {
-        ViewModelProvider(this)[DetailsViewModel::class.java]
-    }
+    override val viewModel: DetailsViewModel by viewModel()
     override fun inflateViewBinding(): ActivityDetailsBinding {
         return ActivityDetailsBinding.inflate(layoutInflater)
     }
